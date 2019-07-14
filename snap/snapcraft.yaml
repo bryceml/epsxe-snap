@@ -1,0 +1,28 @@
+name: epsxe
+version: 2.0.5.0
+summary: ePSXe Playstation Emulator
+description: |
+  This is ePSXe, a playstation emulator available for download from
+  https://www.epsxe.com
+confinement: devmode
+grade: devel
+base: core
+
+parts:
+  epsxe:
+    plugin: dump
+    source: https://www.epsxe.com/files/ePSXe205linux_x64.zip
+    stage-packages:
+      - libgl1-mesa-glx
+      - libasound2
+      - libcurl3
+      - libgtk-3-0
+      - libsdl1.2debian
+    override-prime: |
+      snapcraftctl prime
+      chmod +x epsxe_x64
+    build-attributes: [keep-execstack]
+
+apps:
+  epsxe:
+    command: epsxe_x64
